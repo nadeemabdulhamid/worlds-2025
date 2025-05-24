@@ -55,12 +55,17 @@ public class CircleWorld implements IWorld {
     /**
      * Returns to the welcome view if the escape key 
      * is pressed. Exits the application completely 
-     * if 'x' is pressed. Otherwise, it returns the default
+     * if 'x' is pressed. Pauses the animation if the 
+     * enter key is pressed. 
+     * Otherwise, it returns the default
      * behavior of the keyTyped method.
      */
     public IWorld keyTyped(KeyEvent kev) { 
         if (kev.getKey() == ESCAPE) {
             return new WelcomeWorld();
+        } else if (kev.getKey() == '\n') {
+            return new PauseWorld(this);    // wraps the current world in a pause world
+                                            // and returns the pause world as the active world
         } else if (kev.getKey() == 'x') {
             return Main.instance.forceExit();
         } else {
